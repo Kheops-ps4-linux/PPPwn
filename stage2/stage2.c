@@ -686,11 +686,12 @@ if (fd >= 0) {
 
     // Open/create /data/linux directory
     ksys_mkdir(td, "/data/linux", 0755);
-
+    ksys_mkdir(td, "/data/linux/boot", 0755);
+	
     // Open /data/linux/linux.bin for writing (overwrite)
-    fd = ksys_open(td, "/data/linux/linux.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    fd = ksys_open(td, "/data/linux/boot/linux.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0) {
-        printf("Failed to open /data/linux/linux.bin for writing\n");
+        printf("Failed to open /data/linux/boot/linux.bin for writing\n");
         return;
     }
 
@@ -706,7 +707,7 @@ if (fd >= 0) {
 }
 
 // If payload not found on USB, or after copying from USB, read from internal storage
-fd = ksys_open(td, "/data/linux/linux.bin", O_RDONLY, 0);
+fd = ksys_open(td, "/data/linux/boot/linux.bin", O_RDONLY, 0);
 if (fd < 0) {
     printf("Failed to open linux.bin from any location\n");
     return;
