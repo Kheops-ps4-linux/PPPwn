@@ -664,11 +664,11 @@ if ((buffer = malloc(PAYLOAD_SZ, M_TEMP, 0)) == NULL) {
 }
 
 // Check USB locations first
-fd = ksys_open(td, "/mnt/usb0/payload.bin", O_RDONLY, 0);
+fd = ksys_open(td, "/mnt/usb0/linux.bin", O_RDONLY, 0);
 if (fd < 0) {
-    fd = ksys_open(td, "/mnt/usb1/payload.bin", O_RDONLY, 0);
+    fd = ksys_open(td, "/mnt/usb1/linux.bin", O_RDONLY, 0);
     if (fd < 0) {
-        fd = ksys_open(td, "/mnt/usb2/payload.bin", O_RDONLY, 0);
+        fd = ksys_open(td, "/mnt/usb2/linux.bin", O_RDONLY, 0);
     }
 }
 
@@ -677,7 +677,7 @@ if (fd >= 0) {
 
     int payload_size = ksys_read(td, fd, buffer, PAYLOAD_SZ);
     if (payload_size < 0) {
-        printf("Failed to read payload.bin from USB\n");
+        printf("Failed to read linux.bin from USB\n");
         ksys_close(td, fd);
         return;
     }
