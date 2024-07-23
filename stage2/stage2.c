@@ -684,13 +684,13 @@ if (fd >= 0) {
 
     ksys_close(td, fd); // Close USB file after reading
 
-    // Open/create /data/HEN directory
-    ksys_mkdir(td, "/data/HEN", 0755);
+    // Open/create /data/linux directory
+    ksys_mkdir(td, "/data/linux", 0755);
 
-    // Open /data/HEN/payload.bin for writing (overwrite)
-    fd = ksys_open(td, "/data/HEN/payload.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    // Open /data/linux/linux.bin for writing (overwrite)
+    fd = ksys_open(td, "/data/linux/linux.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0) {
-        printf("Failed to open /data/HEN/payload.bin for writing\n");
+        printf("Failed to open /data/linux/linux.bin for writing\n");
         return;
     }
 
@@ -706,16 +706,16 @@ if (fd >= 0) {
 }
 
 // If payload not found on USB, or after copying from USB, read from internal storage
-fd = ksys_open(td, "/data/HEN/payload.bin", O_RDONLY, 0);
+fd = ksys_open(td, "/data/linux/linux.bin", O_RDONLY, 0);
 if (fd < 0) {
-    printf("Failed to open payload.bin from any location\n");
+    printf("Failed to open linux.bin from any location\n");
     return;
 }
 
 // Read the payload into allocated buffer
 int payload_size = ksys_read(td, fd, buffer, PAYLOAD_SZ);
 if (payload_size <= 0) {
-    printf("Failed to read payload from /data/HEN\n");
+    printf("Failed to read payload from /data/linux\n");
     free(buffer, M_TEMP);
     ksys_close(td, fd);
     return;
